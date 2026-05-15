@@ -1,0 +1,194 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --bg-primary: #F7F5F0;
+    --bg-secondary: #EFECE6;
+    --bg-card: #FFFFFF;
+    --text-primary: #1A1D20;
+    --text-secondary: #5C6166;
+    --text-accent: #8A8170;
+    --border-light: #E5E3DC;
+    --border-dark: #D1CFC7;
+    --placeholder-bg: #EFECE6;
+    --placeholder-border: #D1CFC7;
+    --placeholder-text: #5C6166;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "ss01", "ss02", "kern";
+}
+
+.font-serif {
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-feature-settings: "liga", "dlig";
+}
+
+.font-body {
+    font-family: 'Manrope', sans-serif;
+}
+
+::selection {
+    background: #1A1D20;
+    color: #F7F5F0;
+}
+
+/* Hide scrollbar styling for premium feel */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-dark);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-accent);
+}
+
+/* Grain texture overlay */
+.grain-overlay {
+    position: relative;
+}
+.grain-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Hover line effect for nav */
+.nav-link {
+    position: relative;
+}
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-link:hover::after {
+    width: 100%;
+}
+
+@layer base {
+    :root {
+        --background: 0 0% 100%;
+        --foreground: 0 0% 3.9%;
+        --card: 0 0% 100%;
+        --card-foreground: 0 0% 3.9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 0 0% 3.9%;
+        --primary: 0 0% 9%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 0 0% 96.1%;
+        --secondary-foreground: 0 0% 9%;
+        --muted: 0 0% 96.1%;
+        --muted-foreground: 0 0% 45.1%;
+        --accent: 0 0% 96.1%;
+        --accent-foreground: 0 0% 9%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 0 0% 89.8%;
+        --input: 0 0% 89.8%;
+        --ring: 0 0% 3.9%;
+        --radius: 0.5rem;
+    }
+}
+
+@layer base {
+    [data-debug-wrapper="true"] {
+        display: contents !important;
+    }
+}
+
+/* Print tuning: make browser Print/Save as PDF closer to on-screen layout */
+@media print {
+    @page {
+        size: A4;
+        margin: 10mm;
+    }
+
+    html,
+    body {
+        background: #ffffff !important;
+        color: #111111 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* Force readable text colors in print (many sections use light text on dark backgrounds) */
+    * {
+        color: #111111 !important;
+        text-shadow: none !important;
+        box-shadow: none !important;
+        animation: none !important;
+        transition: none !important;
+    }
+
+    /* Framer-motion / transform side effects during print rendering */
+    [style*="opacity: 0"] {
+        opacity: 1 !important;
+    }
+    [style*="transform"] {
+        transform: none !important;
+    }
+
+    .grain-overlay::after,
+    .nav-link::after {
+        display: none !important;
+    }
+
+    /* Remove dark section backgrounds so content stays visible on white PDF pages */
+    section,
+    .App,
+    [class*="bg-"] {
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+    }
+
+    /* Avoid awkward section splits */
+    .section-anchor,
+    section,
+    .number-badge,
+    h1,
+    h2,
+    h3,
+    p,
+    img {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    /* Print button itself should not appear in exported PDF */
+    [data-testid="cta-print-page"] {
+        display: none !important;
+    }
+
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+        filter: none !important;
+        opacity: 1 !important;
+    }
+}

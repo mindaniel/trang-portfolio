@@ -1,0 +1,23 @@
+﻿/* Component-specific overrides */
+.App {
+    min-height: 100vh;
+    background-color: #F7F5F0;
+    color: #1A1D20;
+}
+
+/* Section anchor offset for sticky nav */
+.section-anchor {
+    scroll-margin-top: 80px;
+}
+
+/* Vertical line accent */
+.vertical-line {
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, #D1CFC7, transparent);
+}
+
+/* Number badge */
+.number-badge {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+}
